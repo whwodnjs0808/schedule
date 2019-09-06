@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+<typeAliases>
+<typeAlias type="kr.ac.kopo.schedule.model.User" alias="User"/>
+<!-- <typeAlias type="kr.ac.kopo.schedule.model.Calendar" alias="Calendar"/> -->
+</typeAliases>
+<mappers>
+<mapper resource="mybatis/user.xml"/>
+<!-- <mapper resource="mybatis/calendar.xml"/> -->
+</mappers>
+</configuration>
