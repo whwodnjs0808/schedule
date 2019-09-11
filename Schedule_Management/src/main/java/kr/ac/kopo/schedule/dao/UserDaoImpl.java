@@ -19,4 +19,9 @@ public class UserDaoImpl implements UserDao {
 		return sql.selectOne("user.login",dto);
 	}
 
+	@Override
+	public void register(User item) {
+		sql.insert("user.register",item);
+	}
+
 }

@@ -23,38 +23,20 @@
 	
 	<context:component-scan base-package="kr.ac.kopo" />
 	
-	<interceptors>
-	<interceptor>
-	<mapping path="/user/loginPost"/>
-	<mapping path="/calendar/fullcalender"/>
-	<beans:bean class="kr.ac.kopo.schedule.util.UserInterceptor"/>
-	</interceptor>
-	</interceptors>
-	
-	<interceptors>
-	<interceptor>
-	<mapping path="/calendar/fullcalendar"/>
-	<beans:bean class="kr.ac.kopo.schedule.util.AuthInterceptor">
-	</beans:bean>
-	</interceptor>
-	</interceptors>
-	
-	<beans:bean id="authInterceptor" class="kr.ac.kopo.schedule.util.AuthInterceptor"></beans:bean>
-	
 	<beans:bean id="userInterceptor" class="kr.ac.kopo.schedule.util.UserInterceptor"></beans:bean>
-	
 	<interceptors>
 	<interceptor>
 	<mapping path="/user/loginPost"/>
 	<beans:ref bean="userInterceptor"/>
 	</interceptor>
 	</interceptors>
-	
+
+	<beans:bean id="authInterceptor" class="kr.ac.kopo.schedule.util.AuthInterceptor"></beans:bean>	
 	<interceptors>
-	<interceptor>
-	<mapping path="/calendar/fullcalendar"/>
-	<beans:ref bean="userInterceptor"/>
-	</interceptor>
+		<interceptor>
+		<mapping path="/calendar/fullcalendar"/>
+		<beans:ref bean="authInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 </beans:beans>

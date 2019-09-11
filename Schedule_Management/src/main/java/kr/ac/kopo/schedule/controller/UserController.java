@@ -1,7 +1,4 @@
 package kr.ac.kopo.schedule.controller;
-
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +16,14 @@ import kr.ac.kopo.schedule.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	/* final String path = "user/"; */
+	 final String path = "user/";
 	
 	@Autowired
 	UserService service;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
-		
+	public String loginGET(@ModelAttribute("dto") LoginDTO dto) {
+		return "/user/login";
 	}
 	
 	@RequestMapping(value="/loginPost",method=RequestMethod.POST)
@@ -40,6 +37,23 @@ public class UserController {
 	}
 
 	
+	@RequestMapping(value="/register",method=RequestMethod.GET)
+	String register() {
+		return path + "register";
+	}
 	
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	String register(User item) {
+		service.register(item);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/logout",method=RequestMethod.POST)
+	String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
+	}
 	
 }

@@ -8,6 +8,8 @@ public interface UserService {
 
 	User login(LoginDTO dto);
 
+	void register(User item);
+
 
 
 }

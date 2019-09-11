@@ -9,5 +9,7 @@ public interface UserDao {
 
 	User login(LoginDTO dto);
 
+	void register(User item);
+
 
 }
