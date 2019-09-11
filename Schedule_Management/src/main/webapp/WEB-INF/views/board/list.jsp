@@ -221,6 +221,9 @@
               </table>
             </div>
           </div>
+          <div>
+          	<a href="/board/register">등록</a>
+          </div>
           <!-- paging  -->
       <div class="row">
       <div class="col-sm-12 col-md-7">

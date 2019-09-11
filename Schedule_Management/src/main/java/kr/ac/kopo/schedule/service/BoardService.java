@@ -12,4 +12,12 @@ public interface BoardService {
 
 	int listSearchCount(SearchCriteria cri);
 
+	void register(Board item);
+
+	void delete(int bno);
+
+	void update(Board item);
+
+	Board getItem(int bno);
+
 }

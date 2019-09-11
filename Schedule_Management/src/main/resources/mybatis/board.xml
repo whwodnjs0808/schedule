@@ -22,7 +22,19 @@
 ]]>
  <include refid="search"></include>
 </select>
-
+<insert id="register" parameterType="Board">
+	insert into board (title,contents,userid)
+	values (#{title}, #{contents},#{userid})
+</insert>
+<delete id="delete">
+	delete from board where bno =#{bno}
+</delete>
+<update id="update">
+	update board set title=#{title},contents=#{contents} where bno =#{bno}
+</update>
+<select id="getItem" resultType="Board">
+	select * from board where bno=#{bno}
+</select>
 <sql id="search">
 	<if test="searchType != null">
 		<if test="searchType == 't'.toString()">

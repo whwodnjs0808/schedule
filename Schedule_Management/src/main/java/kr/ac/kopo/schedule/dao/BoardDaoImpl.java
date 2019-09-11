@@ -25,4 +25,24 @@ public class BoardDaoImpl implements BoardDao {
 		return sql.selectOne("board.listSearchCount",cri);
 	}
 
+	@Override
+	public void register(Board item) {
+		sql.insert("board.register",item);
+	}
+
+	@Override
+	public void delete(int bno) {
+		sql.delete("board.delete",bno);
+	}
+
+	@Override
+	public void update(Board item) {
+		sql.update("board.update",item);
+	}
+
+	@Override
+	public Board getItem(int bno) {
+		return sql.selectOne("board.getItem",bno);
+	}
+
 }

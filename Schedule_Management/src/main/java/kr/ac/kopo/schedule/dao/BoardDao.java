@@ -10,4 +10,12 @@ public interface BoardDao {
 	List<Board> listSearch(SearchCriteria cri);
 
 	int listSearchCount(SearchCriteria cri);
+
+	void register(Board item);
+
+	void delete(int bno);
+
+	void update(Board item);
+
+	Board getItem(int bno);
 }

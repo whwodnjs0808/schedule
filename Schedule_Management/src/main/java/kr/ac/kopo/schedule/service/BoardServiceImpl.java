@@ -25,4 +25,24 @@ public class BoardServiceImpl implements BoardService {
 		return dao.listSearchCount(cri);
 	}
 
+	@Override
+	public void register(Board item) {
+		dao.register(item);
+	}
+
+	@Override
+	public void delete(int bno) {
+		dao.delete(bno);
+	}
+
+	@Override
+	public void update(Board item) {
+		dao.update(item);
+	}
+
+	@Override
+	public Board getItem(int bno) {
+		return dao.getItem(bno);
+	}
+
 }

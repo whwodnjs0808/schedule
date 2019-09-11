@@ -37,5 +37,39 @@ public class BoardController {
 		model.addAttribute("pageMaker",pageMaker);
 		
 	}
+	@RequestMapping(value="/register",method=RequestMethod.GET)
+	public String register() {
+		return path + "register";
+	}
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	public String register(Board item) {
+		
+		service.register(item);
+		
+		return "redirect:list";
+	}
+	
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	public String delete(int bno) {
+		service.delete(bno);
+		return "redirect:list";
+	}
+	@RequestMapping(value="/update",method=RequestMethod.GET)
+	public String update(Model model,int bno) {
+		Board item = service.getItem(bno);
+		
+		model.addAttribute("item",item);
+		
+		return path + "update";
+	}
+	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String update(Board item) {
+		
+		service.update(item);
+		
+		return "redirect:list";
+	}
+	
 	
 }
