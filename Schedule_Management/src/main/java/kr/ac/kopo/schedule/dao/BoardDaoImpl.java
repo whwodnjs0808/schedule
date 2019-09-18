@@ -45,4 +45,9 @@ public class BoardDaoImpl implements BoardDao {
 		return sql.selectOne("board.getItem",bno);
 	}
 
+	@Override
+	public Board read(int bno) {
+		return sql.selectOne("board.read",bno);
+	}
+
 }

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.ac.kopo.schedule.model.Board;
 import kr.ac.kopo.schedule.model.PageMaker;
@@ -49,14 +51,22 @@ public class BoardController {
 		return "redirect:list";
 	}
 	
-	@RequestMapping(value="/delete",method=RequestMethod.POST)
-	public String delete(int bno) {
+	@RequestMapping(value="/delete")
+	public String delete(@RequestParam("bno") int bno,SearchCriteria cri,RedirectAttributes rttr) {
 		service.delete(bno);
+		
+		rttr.addAttribute("page",cri.getPage());
+		rttr.addAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addAttribute("searchType",cri.getSearchType());
+		rttr.addAttribute("keyword",cri.getKeyword());
+		
+		rttr.addFlashAttribute("msg","SUCCESS");
+		
 		return "redirect:list";
 	}
 	@RequestMapping(value="/update",method=RequestMethod.GET)
-	public String update(Model model,int bno) {
-		Board item = service.getItem(bno);
+	public String update(Model model,int bno, @ModelAttribute("cri") SearchCriteria cri) {
+		Board item = service.read(bno);
 		
 		model.addAttribute("item",item);
 		
@@ -64,11 +74,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public String update(Board item) {
+	public String update(Board item,RedirectAttributes rttr,SearchCriteria cri) {
 		
 		service.update(item);
 		
+		rttr.addAttribute("page",cri.getPage());
+		rttr.addAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addAttribute("searchType",cri.getSearchType());
+		rttr.addAttribute("keyword",cri.getKeyword());
+		
+		rttr.addFlashAttribute("msg","SUCCESS");
+		
 		return "redirect:list";
+	}
+	@RequestMapping(value="/readPage",method=RequestMethod.GET)
+	public void read(@RequestParam("bno") int bno,@ModelAttribute("cri") SearchCriteria cri, Model model){
+		Board board = service.read(bno);
+		
+		model.addAttribute("list",board);
+	
 	}
 	
 	

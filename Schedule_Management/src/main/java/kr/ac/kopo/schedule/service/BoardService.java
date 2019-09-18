@@ -20,4 +20,7 @@ public interface BoardService {
 
 	Board getItem(int bno);
 
+	Board read(int bno);
+
+
 }

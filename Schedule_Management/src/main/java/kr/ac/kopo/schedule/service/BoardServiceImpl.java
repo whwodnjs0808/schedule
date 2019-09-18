@@ -45,4 +45,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getItem(bno);
 	}
 
+	@Override
+	public Board read(int bno) {
+		return dao.read(bno);
+	}
+
 }

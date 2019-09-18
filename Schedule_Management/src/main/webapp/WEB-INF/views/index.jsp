@@ -127,13 +127,13 @@
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Other Pages:</h6>
           <!-- <a class="dropdown-item" href="404.html">404 Page</a> -->
-          <a class="dropdown-item" href="calendar/fullcalendar">Calendar</a>
+         <!--  <a class="dropdown-item" href="calendar/fullcalendar">Calendar</a> -->
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/calendar/fullcalendar">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+          <span>Calendar</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/board/list">

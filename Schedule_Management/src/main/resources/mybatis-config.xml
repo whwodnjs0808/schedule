@@ -5,11 +5,11 @@
 <typeAliases>
 <typeAlias type="kr.ac.kopo.schedule.model.User" alias="User"/>
 <typeAlias type="kr.ac.kopo.schedule.model.Board" alias="Board"/>
-<!-- <typeAlias type="kr.ac.kopo.schedule.model.Calendar" alias="Calendar"/> -->
+ <typeAlias type="kr.ac.kopo.schedule.model.Calendar" alias="Calendar"/> 
 </typeAliases>
 <mappers>
 <mapper resource="mybatis/user.xml"/>
 <mapper resource="mybatis/board.xml"/>
-<!-- <mapper resource="mybatis/calendar.xml"/> -->
+<mapper resource="mybatis/calendar.xml"/>
 </mappers>
 </configuration>

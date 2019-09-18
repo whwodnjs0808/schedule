@@ -18,4 +18,6 @@ public interface BoardDao {
 	void update(Board item);
 
 	Board getItem(int bno);
+
+	Board read(int bno);
 }

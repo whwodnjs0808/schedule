@@ -1,244 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<link href='/resources/assets/css/fullcalendar.css' rel='stylesheet' />
-<link href='/resources/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='/resources/assets/js/jquery-1.10.2.js' type="text/javascript"></script>
-<!-- <script src='/resources/assets/js/jquery-ui.custom.min.js' type="text/javascript"></script> -->
-<script src='/resources/assets/js/fullcalendar.js' type="text/javascript"></script>
-
-<!-- main css -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-<style type="text/css">
-/* 	.fc-event{display:none !important;} */
-</style>
+  <title>SB Admin - 404 Error</title>
 
-
-  <title>SB Admin - Blank Page</title>
-
- <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-<!--   Page level plugin CSS -->
+  <!-- Page level plugin CSS-->
   <link href="/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-<!--   Custom styles for this template -->
-  <link href="/resources/css/sb-admin.css" rel="stylesheet"> 
-
-<script>
-
-	$(document).ready(function() {
-	    var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-
-		/*  className colors
-
-		className: default(transparent), important(red), chill(pink), success(green), info(blue)
-
-		*/
-
-
-		/* initialize the external events
-		-----------------------------------------------------------------*/
-
-		$('#external-events div.external-event').each(function() {
-
-			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-			// it doesn't need to have a start or end
-			var eventObject = {
-				title: $.trim($(this).text()) // use the element's text as the event title
-			};
-
-			// store the Event Object in the DOM element so we can get to it later
-			$(this).data('eventObject', eventObject);
-
-			// make the event draggable using jQuery UI
-			$(this).draggable({
-				zIndex: 999,
-				revert: true,      // will cause the event to go back to its
-				revertDuration: 0  //  original position after the drag
-			});
-
-		});
-
-
-		/* initialize the calendar
-		-----------------------------------------------------------------*/
-
-		var calendar =  $('#calendar').fullCalendar({
-			header: {
-				left: 'title',
-				center: 'agendaDay,agendaWeek,month',
-				right: 'prev,next today'
-			},
-			editable: true,
-			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-			selectable: true,
-			defaultView: 'month',
-
-			axisFormat: 'h:mm',
-			columnFormat: {
-                month: 'ddd',    // Mon
-                week: 'ddd d', // Mon 7
-                day: 'dddd M/d',  // Monday 9/7
-                agendaDay: 'dddd d'
-            },
-            titleFormat: {
-                month: 'MMMM yyyy', // September 2009
-                week: "MMMM yyyy", // September 2009
-                day: 'MMMM yyyy'  // Tuesday, Sep 8, 2009
-            },
-			allDaySlot: false,
-			selectHelper: true,
-			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
-				if (title) {
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-			},
-			droppable: true, // this allows things to be dropped onto the calendar !!!
-			drop: function(date, allDay) { // this function is called when something is dropped
-
-				// retrieve the dropped element's stored Event Object
-				var originalEventObject = $(this).data('eventObject');
-
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
-
-				// assign it the date that was reported
-				copiedEventObject.start = date;
-				copiedEventObject.allDay = allDay;
-
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
-
-			},
-
-		
-		});
-
-
-	});
-
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-	var text = $(".fc-event-title").text();
-	console.log(text);
-	
-	$("#save").click(function(){
-		var data = text;
-		
-		$.ajax("/add",{
-			method: "POST",
-			data : {
-				contents : data,
-				userid : {item.userid}
-			},
-			success:function(result){
-				console.log(result);
-				
-				if(result==1)
-					alert("등록되었습니다.");
-			}
-		});
-		
-		
-	});
+  <!-- Custom styles for this template-->
+  <link href="/resources/css/sb-admin.css" rel="stylesheet">
+<style type="text/css">
+	.box-body{border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:3px;border-bottom-right-radius:3px;padding:10px;}
+	.form-group{margin-bottom:15px;}
+	label{display:inline-block; max-width:100%; margin-bottom:5px; font-weight: 700;}
+	.form-control{border-radius: 0 !important; box-shadow:none; border-color:#d2d6de;
+	display:block; width:100%; height:34px; padding: 6px 12px; font-size: 14px; line-height:1.42857143; border:1px solid #ccc; 
+	}
+	.btn-primary{background-color:#3c8dbc; border-color:#367fa9;}
 	
 	
-});
 
-</script>
-<style>
-
-/* 	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 14px;
-		font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
-		background-color: #DDDDDD;
-		}
-
-	#wrap {
-		width: 1100px;
-		margin: 0 auto;
-		}
- */
-	#external-events {
-		float: left;
-		width: 150px;
-		padding: 0 10px;
-		text-align: left;
-		}
-
-	#external-events h4 {
-		font-size: 16px;
-		margin-top: 0;
-		padding-top: 1em;
-		}
-
-	.external-event { /* try to mimick the look of a real event */
-		margin: 10px 0;
-		padding: 2px 4px;
-		background: #3366CC;
-		color: #fff;
-		font-size: .85em;
-		cursor: pointer;
-		}
-
-	#external-events p {
-		margin: 1.5em 0;
-		font-size: 11px;
-		color: #666;
-		}
-
-	#external-events p input {
-		margin: 0;
-		vertical-align: middle;
-		}
-
-	#calendar {
-/* 		float: right; */
-        margin: 0 auto;
-		width: 900px;
-		background-color: #FFFFFF;
-		  border-radius: 6px;
-        box-shadow: 0 1px 2px #C3C3C3;
-		}
-.fc-content{margin-bottom:10px;}
 </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$(document).ready(function(){
+		var formObj = $("form[role='form']");
+		console.log(formObj);
+		
+		$(".goListBtn").on("click",function(){
+			formObj.attr("method","get");
+			formObj.attr("action","/board/list");
+			formObj.submit();
+		});
+		
+		$(".btn-danger").on("click",function(){
+			formObj.attr("action","/board/delete");
+			formObj.submit();
+		});
+		$(".btn-warning").on("click",function(){
+			formObj.attr("action","/board/update");
+			formObj.attr("method","get");
+			formObj.submit();
+		});
+		
+		var writer = $(".writer").val();
+		var userid = $("#userid").val();
+		if(writer != userid){
+			$(".modifyBtn").css('display', 'none');
+			$(".removeBtn").css('display', 'none');
+		} else{
+		/* 	$(".modifyBtn").css('display', 'block');
+			$(".removeBtn").css('display', 'block'); */
+		}
+		
+	});
+</script>
 </head>
+
 <body id="page-top">
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -266,7 +96,6 @@ $(document).ready(function(){
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-bell fa-fw"></i>
-   
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
           <a class="dropdown-item" href="#">Action</a>
@@ -278,7 +107,6 @@ $(document).ready(function(){
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
-  
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
           <a class="dropdown-item" href="#">Action</a>
@@ -303,8 +131,8 @@ $(document).ready(function(){
   </nav>
 
   <div id="wrapper">
-
-    <!-- Sidebar -->
+	
+     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
@@ -358,16 +186,40 @@ $(document).ready(function(){
           <li class="breadcrumb-item">
             <a href="index.html">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Calendar</li>
+          <li class="breadcrumb-item active">404 Error</li>
         </ol>
 
         <!-- Page Content -->
-      <div id='calendar'></div>
-
-<div style='clear:both'></div>
-<button type="button" id="save">등록</button>
-</div>
-
+      <div class="box-body">
+      <input type="hidden" id="userid" value="${login.userid}">
+      <form role="form" method="post">
+		<input type="hidden" name="bno" value="${list.bno}">
+	</form>
+      	<div class="form-group">
+      		<label>Title</label>
+      		<input type="text" name="title" class="form-control" value="${list.title}" readonly="readonly">
+      	</div >
+   		<div class="form-group">
+      		<label>Contents</label>
+      		<textarea name="contents" rows="3" class="form-control" readonly="readonly">${list.contents}</textarea>
+      	</div>
+      	<div class="form-group">
+      		<label>Writer</label>
+      		<input type="text" readonly="readonly" name="userid" class="form-control writer" readonly="readonly" value="${list.userid }">
+      	</div>
+      	<div class="box-footer">
+      	<button type="button" class="btn btn-warning modifyBtn">Modify</button>
+      	<button type="button" class="btn btn-danger removeBtn">REMOVE</button>
+      	<button type="button" class="btn btn-primary goListBtn">GO LIST</button>
+      </div>
+      </div>
+		<form role="form" action="modifyPage" method="post">
+			<input type="hidden" name="bno" value="${list.bno}">
+			<input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+			<input type="hidden" name="searchType" value="${cri.searchType}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
+		</form>
       </div>
       <!-- /.container-fluid -->
 
@@ -383,7 +235,7 @@ $(document).ready(function(){
     </div>
     <!-- /.content-wrapper -->
 
-<!--   </div> -->
+  </div>
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->
@@ -411,14 +263,15 @@ $(document).ready(function(){
   </div>
 
   <!-- Bootstrap core JavaScript-->
- <!--  <script src="/resources/vendor/jquery/jquery.min.js"></script>
-  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <!-- <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
- -->
+  <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
   <!-- Custom scripts for all pages-->
- <!--  <script src="/resources/js/sb-admin.min.js"></script> -->
+  <script src="/resources/js/sb-admin.min.js"></script>
 
 </body>
+
 </html>

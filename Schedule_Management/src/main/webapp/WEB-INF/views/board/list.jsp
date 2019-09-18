@@ -42,6 +42,7 @@
 .active2{background-color:#17a2b8 !important;}
 .row{margin:0 auto !important;}
 .box-body{text-align:right; margin:20px 20px 0 0;}
+.btn-primary{background-color:#3c8dbc; border-color:#367fa9; float:right;}
 </style>
 </head>
 
@@ -49,7 +50,7 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="/">Start Bootstrap</a>
+    <a class="navbar-brand mr-1" href="/">Schedule_Management</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -108,9 +109,9 @@
 
   <div id="wrapper">
 
-    <!-- Sidebar -->
+ <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
@@ -123,24 +124,33 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+          <c:choose>
+           <c:when test="${login.userid eq null }">
+            <a class="dropdown-item" href="/user/login">Login</a>
+            <a class="dropdown-item" href="/user/register">Register</a>
+           </c:when>
+           <c:otherwise>
+           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+           </c:otherwise>
+          </c:choose>
+         
+          
+         <!--  <a class="dropdown-item" href="forgot-password.html">Forgot Password</a> -->
           <div class="dropdown-divider"></div>
           <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
+          <!-- <a class="dropdown-item" href="404.html">404 Page</a> -->
+         <!--  <a class="dropdown-item" href="calendar/fullcalendar">Calendar</a> -->
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/calendar/fullcalendar">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+          <span>Calendar</span></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="tables.html">
+      <li class="nav-item">
+        <a class="nav-link" href="/board/list">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <span>Board</span></a>
       </li>
     </ul>
 
@@ -204,7 +214,7 @@
                 			<c:forEach var="list" items="${list}">
                 				<tr>
                 					<td>${list.bno}</td>
-                					<td>${list.title}</td>
+                					<td><a href='/board/readPage${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${list.bno}'>${list.title}</a></td>
                 					<td>${list.userid}</td>
                 					<td>${list.regdate}</td>
                 					<td>${list.viewcnt}</td>
@@ -219,10 +229,13 @@
                 	</c:choose>
                 </tbody>
               </table>
+               <div class="box-footer">
+          	<a href="/board/register" class="btn btn-primary">등록</a>
+          </div>
             </div>
           </div>
           <div>
-          	<a href="/board/register">등록</a>
+         
           </div>
           <!-- paging  -->
       <div class="row">
@@ -290,7 +303,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="/logout">Logout</a>
         </div>
       </div>
     </div>
