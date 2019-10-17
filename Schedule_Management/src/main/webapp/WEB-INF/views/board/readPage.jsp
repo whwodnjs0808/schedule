@@ -59,7 +59,9 @@
 		var userid = $("#userid").val();
 		if(writer != userid){
 			$(".modifyBtn").css('display', 'none');
+			$(".modifyBtn").attr('disabled', false);
 			$(".removeBtn").css('display', 'none');
+			$(".removeBtn").attr('disabled', false);
 		} else{
 		/* 	$(".modifyBtn").css('display', 'block');
 			$(".removeBtn").css('display', 'block'); */
@@ -208,7 +210,7 @@
       		<input type="text" readonly="readonly" name="userid" class="form-control writer" readonly="readonly" value="${list.userid }">
       	</div>
       	<div class="box-footer">
-      	<button type="button" class="btn btn-warning modifyBtn">Modify</button>
+      	<button type="button" class="btn btn-warning modifyBtn" >Modify</button>
       	<button type="button" class="btn btn-danger removeBtn">REMOVE</button>
       	<button type="button" class="btn btn-primary goListBtn">GO LIST</button>
       </div>

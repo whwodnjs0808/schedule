@@ -45,6 +45,7 @@
 		var m = date.getMonth();
 		var y = date.getFullYear();
 
+	 	
 		/*  className colors
 
 		className: default(transparent), important(red), chill(pink), success(green), info(blue)
@@ -72,9 +73,8 @@
 				revert: true,      // will cause the event to go back to its
 				revertDuration: 0  //  original position after the drag
 			});
-
 		});
-
+	
 
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
@@ -113,6 +113,7 @@
 							start: start,
 							end: end,
 							allDay: allDay
+					
 						},
 						true // make the event "stick"
 					);
@@ -124,10 +125,11 @@
 
 				// retrieve the dropped element's stored Event Object
 				var originalEventObject = $(this).data('eventObject');
+				console.log("originalEventObject");
 
 				// we need to copy it, so that multiple events don't have a reference to the same object
 				var copiedEventObject = $.extend({}, originalEventObject);
-
+				console.log(copiedEventObject);
 				// assign it the date that was reported
 				copiedEventObject.start = date;
 				copiedEventObject.allDay = allDay;
@@ -142,46 +144,33 @@
 					$(this).remove();
 				}
 
-			},
-
+			},			
 		
 		});
+		$("#save").click(function(){
+			var data = $("#calendar").text();
+			var id = $("input[name=userid]").val();
 
-
+			$.ajax("/calendar/add",{
+				method: "POST",
+				data : {
+					contents :data,
+					userid : id
+				},
+				success:function(result){
+					console.log(result);
+					if(result==1)
+					alert("저장되었습니다.");
+					console.log(data);
+				}
+			});
+		});
+		
 	});
 
 </script>
-<script type="text/javascript">
-$(document).ready(function(){
-	var text = $(".fc-event-title").text();
-	console.log(text);
-	
-	$("#save").click(function(){
-		var data = text;
-		
-		$.ajax("/add",{
-			method: "POST",
-			data : {
-				contents : data,
-				userid : {item.userid}
-			},
-			success:function(result){
-				console.log(result);
-				
-				if(result==1)
-					alert("등록되었습니다.");
-			}
-		});
-		
-		
-	});
-	
-	
-});
 
-</script>
 <style>
-
 /* 	body {
 		margin-top: 40px;
 		text-align: center;
@@ -356,16 +345,18 @@ $(document).ready(function(){
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="index.html">Dashboard</a>
+            <a href="/">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Calendar</li>
         </ol>
 
         <!-- Page Content -->
-      <div id='calendar'></div>
+      <div id='calendar' class="listCalendar"></div>
 
 <div style='clear:both'></div>
-<button type="button" id="save">등록</button>
+<input type="hidden" name="userid" value="${login.userid}" id="useridAjax"> 
+<%-- <input type="hidden" name="calendarList" value="${list.contents}"> --%>
+<button type="button" id="save">저장</button>
 </div>
 
       </div>
