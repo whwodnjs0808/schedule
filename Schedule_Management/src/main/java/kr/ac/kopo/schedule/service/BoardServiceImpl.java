@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.kopo.schedule.dao.BoardDao;
 import kr.ac.kopo.schedule.model.Board;
@@ -45,9 +47,14 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getItem(bno);
 	}
 
+
+//	조회 수
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public Board read(int bno) {
+		dao.updateViewCnt(bno);
 		return dao.read(bno);
 	}
-
+	
+	
 }

@@ -24,4 +24,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return dao.list(calendar);
 	}
 
+	@Override
+	public void insert(Calendar item) {
+		dao.insert(item);
+	}
+
 }

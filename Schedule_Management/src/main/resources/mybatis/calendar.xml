@@ -3,10 +3,15 @@
 
 <mapper namespace="calendar">
 <select id="list" resultType="Calendar">
-	select contents from calendar where userid=#{userid}
+	select * from calendar where userid=#{userid}
 </select>
 <insert id="add">
-	insert into calendar(userid,contents,reg_date) 
-	values(#{userid},#{contents},NOW())
+	insert into calendar(userid,title,start_event,end_event) 
+	values(#{userid},#{title},#{startEvent},#{endEvent})
+</insert>
+
+<insert id="insert">
+	insert into calendar(userid,title,start_event,end_event) 
+	values(#{userid},#{title},#{startEvent},#{endEvent})
 </insert>
 </mapper>

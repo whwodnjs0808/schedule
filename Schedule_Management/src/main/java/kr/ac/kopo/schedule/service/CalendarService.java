@@ -10,5 +10,7 @@ public interface CalendarService {
 
 	List<Calendar> list(Calendar calendar);
 
+	void insert(Calendar item);
+
 
 }

@@ -50,4 +50,9 @@ public class BoardDaoImpl implements BoardDao {
 		return sql.selectOne("board.read",bno);
 	}
 
+	@Override
+	public void updateViewCnt(int bno) {
+		sql.update("board.updateViewCnt",bno);
+	}
+
 }

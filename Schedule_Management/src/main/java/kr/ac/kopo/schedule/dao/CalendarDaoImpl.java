@@ -24,4 +24,9 @@ public class CalendarDaoImpl implements CalendarDao {
 		return session.selectList("calendar.list",calendar);
 	}
 
+	@Override
+	public void insert(Calendar item) {
+		session.insert("calendar.insert",item);
+	}
+
 }

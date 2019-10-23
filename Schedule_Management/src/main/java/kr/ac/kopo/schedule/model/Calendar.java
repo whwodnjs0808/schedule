@@ -1,14 +1,12 @@
 package kr.ac.kopo.schedule.model;
 
-import java.util.Date;
-
 public class Calendar {
 
 	int pid;
 	String userid;
-	String contents;
-	Date regDate;
-	Date updateDate;
+	String title;
+	String startEvent;
+	String endEvent;
 
 	public int getPid() {
 		return pid;
@@ -26,28 +24,28 @@ public class Calendar {
 		this.userid = userid;
 	}
 
-	public String getContents() {
-		return contents;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public String getStartEvent() {
+		return startEvent;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setStartEvent(String startEvent) {
+		this.startEvent = startEvent;
 	}
 
-	public Date getUpdateDate() {
-		return updateDate;
+	public String getEndEvent() {
+		return endEvent;
 	}
 
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setEndEvent(String endEvent) {
+		this.endEvent = endEvent;
 	}
 
 }

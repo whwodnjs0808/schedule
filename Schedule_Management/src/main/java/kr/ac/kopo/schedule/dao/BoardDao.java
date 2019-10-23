@@ -20,4 +20,6 @@ public interface BoardDao {
 	Board getItem(int bno);
 
 	Board read(int bno);
+
+	void updateViewCnt(int bno);
 }

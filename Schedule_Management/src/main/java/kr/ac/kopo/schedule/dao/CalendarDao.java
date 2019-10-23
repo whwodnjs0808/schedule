@@ -10,4 +10,6 @@ public interface CalendarDao {
 
 	List<Calendar> list(Calendar calendar);
 
+	void insert(Calendar item);
+
 }
