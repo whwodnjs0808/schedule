@@ -106,15 +106,35 @@
 			selectHelper: true,
 			select: function(start, end, allDay) {
 				var title = prompt('Event Title:');
+
+				var id = $("input[name=userid]").val();
+				
 				if (title) {
+			/* ajax */
+			$.ajax("/calendar/add",{
+				method: "POST",
+				data : {
+					title : title,
+					startEvent : start,
+					endEvent : end,
+					userid : id
+				},
+				success:function(result){
+					console.log(result);
+					if(result==1)
+					alert("저장되었습니다.");
+					console.log(data);
+				}
+			});
+					
 					calendar.fullCalendar('renderEvent',
 						{
 							title: title,
 							start: start,
 							end: end,
 							allDay: allDay
-					
 						},
+						
 						true // make the event "stick"
 					);
 				}
@@ -147,14 +167,19 @@
 			},			
 		
 		});
-		$("#save").click(function(){
-			var data = $("#calendar").text();
+		/* $("#save").click(function(start,end,callback){
+			
+			var title = title;
+			var start = start;
+			var end = end;
 			var id = $("input[name=userid]").val();
 
 			$.ajax("/calendar/add",{
 				method: "POST",
 				data : {
-					contents :data,
+					title : title,
+					startEvent : start,
+					endEvent : end,
 					userid : id
 				},
 				success:function(result){
@@ -164,7 +189,7 @@
 					console.log(data);
 				}
 			});
-		});
+		}); */
 		
 	});
 
