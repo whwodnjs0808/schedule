@@ -14,10 +14,28 @@
 
   <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <!-- Custom styles for this template-->
   <link href="/resources/css/sb-admin.css" rel="stylesheet">
-
+	<script>
+		$("#userid").blur(function(){
+			var userid = $("#userid").val();
+			$.ajax({
+				url : '${pageContext.request.contextPath}/user/idCheck?userid='+userid,
+				type : 'get',
+				success:function(data){
+					console.log("1 = 중복o / 0 = 중복x : " +data);
+					if(data == 1){
+						$("#id_check").text("사용중인 아이디입니다.");
+						$("#id_check").css("color","red");
+						//$("#id_check").attr("disabled",true);
+					}
+				},error:function(){
+					console.log("실패");
+				}
+			});
+		});
+	</script>
 </head>
 
 <body class="bg-dark">
@@ -33,6 +51,7 @@
                 <div class="form-label-group">
                   <input type="text" id="userid" class="form-control" placeholder="USERID" required="required" name="userid">
                   <label for="userid">USERID</label>
+                   <div class="check_font" id="id_check"></div>
                 </div>
               </div>
             </div>

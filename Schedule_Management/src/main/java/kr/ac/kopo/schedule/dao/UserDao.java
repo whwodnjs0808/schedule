@@ -11,5 +11,7 @@ public interface UserDao {
 
 	void register(User item);
 
+	int useridCheck(String userid);
+
 
 }

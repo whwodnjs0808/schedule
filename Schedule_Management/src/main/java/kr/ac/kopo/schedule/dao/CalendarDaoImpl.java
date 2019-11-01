@@ -20,13 +20,13 @@ public class CalendarDaoImpl implements CalendarDao {
 	}
 
 	@Override
-	public List<Calendar> list(Calendar calendar) {
-		return session.selectList("calendar.list",calendar);
+	public List<Calendar> list() {
+		return session.selectList("calendar.list");
 	}
 
 	@Override
-	public void insert(Calendar item) {
-		session.insert("calendar.insert",item);
+	public int delete(int pid) {
+		return session.delete("calendar.delete",pid);
 	}
 
 }

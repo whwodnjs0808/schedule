@@ -20,13 +20,13 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public List<Calendar> list(Calendar calendar) {
-		return dao.list(calendar);
+	public List<Calendar> list() {
+		return dao.list();
 	}
 
 	@Override
-	public void insert(Calendar item) {
-		dao.insert(item);
+	public int delete(int pid) {
+		return dao.delete(pid);
 	}
 
 }

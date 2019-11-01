@@ -24,4 +24,8 @@ public class UserDaoImpl implements UserDao {
 		sql.insert("user.register",item);
 	}
 
+	@Override
+	public int useridCheck(String userid) {
+		return sql.selectOne("user.useridCheck",userid);
+	}
 }

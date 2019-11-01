@@ -3,15 +3,17 @@
 
 <mapper namespace="calendar">
 <select id="list" resultType="Calendar">
-	select * from calendar where userid=#{userid}
+	select userid,title,start,end from calendar 
+	<if test="userid != null">
+		where userid=#{userid}
+	</if>
 </select>
 <insert id="add">
-	insert into calendar(userid,title,start_event,end_event) 
-	values(#{userid},#{title},#{startEvent},#{endEvent})
+	insert into calendar(userid,title,start,end) 
+	values(#{userid},#{title},#{start},#{end})
 </insert>
 
-<insert id="insert">
-	insert into calendar(userid,title,start_event,end_event) 
-	values(#{userid},#{title},#{startEvent},#{endEvent})
-</insert>
+<delete id="delete">
+	delete from calendar where pid=#{pid}
+</delete>
 </mapper>

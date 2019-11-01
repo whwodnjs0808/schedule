@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
 		dao.register(item);
 	}
 
+	@Override
+	public int useridCheck(String userid) {
+		return dao.useridCheck(userid);
+	}
+
 }

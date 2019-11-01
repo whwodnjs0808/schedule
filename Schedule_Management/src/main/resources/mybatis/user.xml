@@ -7,4 +7,9 @@
 <insert id="register">
 	insert into user values(#{userid},#{password})
 </insert>
+
+<select id="useridCheck" resultType="int">
+	select count(*) from user where userid =#{userid}
+</select>
+
 </mapper>

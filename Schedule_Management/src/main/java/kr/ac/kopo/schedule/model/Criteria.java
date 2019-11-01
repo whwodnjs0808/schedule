@@ -1,5 +1,6 @@
 package kr.ac.kopo.schedule.model;
 
+// sql 의 pageStart,perPageNum이라는 인라인 파라미터가 존재하는데 파라미터로 전달되는 객체는 getPageStart(),getPerPageNum()이라는 메소드를 가지면 된다. 따라서 이 파라미터들을 클래스로 만들어서 객체로 처리하기위해 Criteria 클래스를 작성했다.
 public class Criteria {
 
 	int page;

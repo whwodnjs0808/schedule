@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,25 +10,25 @@
 <title>Insert title here</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<link href='/resources/assets/css/fullcalendar.css' rel='stylesheet' />
-<link href='/resources/assets/css/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='/resources/assets/js/jquery-1.10.2.js' type="text/javascript"></script>
-<!-- <script src='/resources/assets/js/jquery-ui.custom.min.js' type="text/javascript"></script> -->
-<script src='/resources/assets/js/fullcalendar.js' type="text/javascript"></script>
+
+<!-- fullcalendar -->
+<link href='/assets/demo-to-codepen.css' rel='stylesheet' />
+
+<link href='https://unpkg.com/fullcalendar@3.10.1/dist/fullcalendar.min.css' rel='stylesheet' />
+<link href='https://unpkg.com/fullcalendar@3.10.1/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
+
+
+
+<script src='https://unpkg.com/moment@2.24.0/min/moment.min.js'></script>
+<script src='https://unpkg.com/jquery@3.4.1/dist/jquery.min.js'></script>
+<script src='https://unpkg.com/fullcalendar@3.10.1/dist/fullcalendar.min.js'></script>
+
+<script src='/assets/demo-to-codepen.js'></script>
 
 <!-- main css -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-<style type="text/css">
-/* 	.fc-event{display:none !important;} */
-</style>
-
-
-  <title>SB Admin - Blank Page</title>
 
  <!-- Custom fonts for this template-->
   <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,26 +39,25 @@
 <!--   Custom styles for this template -->
   <link href="/resources/css/sb-admin.css" rel="stylesheet"> 
 
-<script>
+  <script type="text/javascript">
+//   <fmt:formatDate value="${citem.start}" pattern="yyyy-MM-dd"/>
+$(document).ready(function(){
+// 	var id = '${sessionScope.login.userid}';
+// var pid = '${list.pid}';
 
-	$(document).ready(function() {
-	    var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-
-	 	
-		/*  className colors
-
-		className: default(transparent), important(red), chill(pink), success(green), info(blue)
-
-		*/
-
-
-		/* initialize the external events
-		-----------------------------------------------------------------*/
-
-		$('#external-events div.external-event').each(function() {
+	 var dataset = [
+	
+		    <c:forEach var="citem" items="${list}">
+		          {
+		        	 pid:'<c:out value="${citem.pid}"/>',
+		             id:'<c:out value="${citem.userid}" />',
+		             title:'<c:out value="${citem.title}" />',
+		             start: '<c:out value="${citem.start}"/>',
+		             end:'<c:out value="${citem.start}"/>',
+		          },
+		    </c:forEach>
+		]; 
+	  $('#external-events div.external-event').each(function() {
 
 			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
 			// it doesn't need to have a start or end
@@ -73,128 +74,73 @@
 				revert: true,      // will cause the event to go back to its
 				revertDuration: 0  //  original position after the drag
 			});
-		});
-	
-
-		/* initialize the calendar
-		-----------------------------------------------------------------*/
-
-		var calendar =  $('#calendar').fullCalendar({
-			header: {
-				left: 'title',
-				center: 'agendaDay,agendaWeek,month',
-				right: 'prev,next today'
-			},
-			editable: true,
-			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-			selectable: true,
-			defaultView: 'month',
-
-			axisFormat: 'h:mm',
-			columnFormat: {
-                month: 'ddd',    // Mon
-                week: 'ddd d', // Mon 7
-                day: 'dddd M/d',  // Monday 9/7
-                agendaDay: 'dddd d'
-            },
-            titleFormat: {
-                month: 'MMMM yyyy', // September 2009
-                week: "MMMM yyyy", // September 2009
-                day: 'MMMM yyyy'  // Tuesday, Sep 8, 2009
-            },
-			allDaySlot: false,
-			selectHelper: true,
-			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
-
-				var id = $("input[name=userid]").val();
-				
-				if (title) {
-			/* ajax */
-			$.ajax("/calendar/add",{
-				method: "POST",
-				data : {
-					title : title,
-					startEvent : start,
-					endEvent : end,
-					userid : id
-				},
-				success:function(result){
-					console.log(result);
-					if(result==1)
-					alert("저장되었습니다.");
-					console.log(data);
-				}
-			});
-					
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
+		}); 
+	  $(function(){
+		  $('#calendar').fullCalendar({
+		    	 selectable: true,
+		         header: {
+		           left: 'prev,next today',
+		           center: 'title',
+		           right: 'month,agendaWeek,agendaDay'
+		         },
+		         events: dataset,
+		         eventClick : function removeCheck(){
+		        	  var pid= "21";
+		        	 console.log(pid);
+		        	 if(confirm("삭제하시겠습니까?") == true){
+		        		 $.ajax("/calendar/delete",{
+		        			method:"get",
+		        			data:dataset,
+		        			success:function(result){
+		        				if(result==1)
+		        					alert("삭제되었습니다.");
+		        				location.reload();
+		        			}
+		        		 });
+		        	 }else{
+		        		 return false;
+		        	 }
+		         },
+		       
+		         select : function(start, end, allDay) {
+				        var startDate = moment(start).format('YYYY-MM-DD');
+				        var endDate = moment(end).format('YYYY-MM-DD');
+			         	var title = prompt('Event Title:');
+						var id = '${sessionScope.login.userid}';
 						
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-			},
-			droppable: true, // this allows things to be dropped onto the calendar !!!
-			drop: function(date, allDay) { // this function is called when something is dropped
-
-				// retrieve the dropped element's stored Event Object
-				var originalEventObject = $(this).data('eventObject');
-				console.log("originalEventObject");
-
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
-				console.log(copiedEventObject);
-				// assign it the date that was reported
-				copiedEventObject.start = date;
-				copiedEventObject.allDay = allDay;
-
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
-
-			},			
-		
-		});
-		/* $("#save").click(function(start,end,callback){
-			
-			var title = title;
-			var start = start;
-			var end = end;
-			var id = $("input[name=userid]").val();
-
-			$.ajax("/calendar/add",{
-				method: "POST",
-				data : {
-					title : title,
-					startEvent : start,
-					endEvent : end,
-					userid : id
-				},
-				success:function(result){
-					console.log(result);
-					if(result==1)
-					alert("저장되었습니다.");
-					console.log(data);
-				}
-			});
-		}); */
-		
-	});
-
+						console.log(id);
+						console.log(title);
+						console.log(startDate);
+						console.log(endDate);
+						console.log(pid);
+					
+						if (title) {
+					/* ajax */
+							$.ajax("/calendar/add",{
+								method: "POST",
+								data : {
+									title: title,
+								 	start : startDate,
+									end : endDate,
+									userid : id
+								},
+								success:function(result){
+									console.log(result);
+									if(result==1)
+									alert("저장되었습니다.");
+									location.reload();
+								},
+								error : function(error){
+									alert("에러입니다");
+								}
+							});
+						}
+				}	
+});
+	  });
+			 
+});
 </script>
-
 <style>
 /* 	body {
 		margin-top: 40px;
@@ -253,6 +199,8 @@
 .fc-content{margin-bottom:10px;}
 </style>
 </head>
+
+
 <body id="page-top">
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -376,12 +324,24 @@
         </ol>
 
         <!-- Page Content -->
-      <div id='calendar' class="listCalendar"></div>
 
-<div style='clear:both'></div>
+  <div id='calendar'></div>
+<input type="text" name="pid" value="${list.pid}">
 <input type="hidden" name="userid" value="${login.userid}" id="useridAjax"> 
 <%-- <input type="hidden" name="calendarList" value="${list.contents}"> --%>
-<button type="button" id="save">저장</button>
+
+<div>
+	<c:choose>
+		<c:when test="${list.size() > 0 }">
+			<c:forEach var="list" items="${list}">
+				<span>${list.pid }</span>
+			</c:forEach>
+		</c:when>
+	</c:choose>
+</div>
+
+<!-- 
+<button type="button" id="save">저장</button> -->
 </div>
 
       </div>

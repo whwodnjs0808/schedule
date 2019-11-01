@@ -1,14 +1,13 @@
 package kr.ac.kopo.schedule.model;
 
-import java.util.Date;
 
 public class Calendar {
 
 	int pid;
 	String userid;
 	String title;
-	Date startEvent;
-	Date endEvent;
+	String start;
+	String end;
 	boolean allDay = false;
 
 	public int getPid() {
@@ -35,20 +34,20 @@ public class Calendar {
 		this.title = title;
 	}
 
-	public Date getStartEvent() {
-		return startEvent;
+	public String getStart() {
+		return start;
 	}
 
-	public void setStartEvent(Date startEvent) {
-		this.startEvent = startEvent;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
-	public Date getEndEvent() {
-		return endEvent;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setEndEvent(Date endEvent) {
-		this.endEvent = endEvent;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 
 	public boolean isAllDay() {

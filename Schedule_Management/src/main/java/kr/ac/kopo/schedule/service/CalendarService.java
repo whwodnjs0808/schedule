@@ -8,9 +8,8 @@ public interface CalendarService {
 
 	int add(Calendar item);
 
-	List<Calendar> list(Calendar calendar);
+	List<Calendar> list();
 
-	void insert(Calendar item);
-
+	int delete(int pid);
 
 }

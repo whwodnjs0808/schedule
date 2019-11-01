@@ -8,7 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 //현재 사용자가 로그인한 상태인지를 체크하고 컨트롤러를 호출하게 할 것인지를 결정한다. 만일 사용자가 로그인하지 않은 상태라면 로그인하는 /user/login 으로 이동하게 합니다.
 public class AuthInterceptor extends HandlerInterceptorAdapter {
-
+// 사용자가 원래 가려고 했던 uri를 저장했다가 로그인 성공 후 원래의 uri로 이동시키는 작업을 진행하도록 수정
 	private void saveDestination(HttpServletRequest request) {
 		String uri = request.getRequestURI();
 		

@@ -10,6 +10,8 @@ public interface UserService {
 
 	void register(User item);
 
+	int useridCheck(String userid);
+
 
 
 }
