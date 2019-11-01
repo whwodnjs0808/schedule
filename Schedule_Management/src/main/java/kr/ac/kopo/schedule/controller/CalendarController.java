@@ -55,11 +55,11 @@ public class CalendarController {
 	  }
 	
 	
-	@ResponseBody
-	@RequestMapping(value="/delete")
-	String delete(int pid) {
-		return String.valueOf(service.delete(pid));
-	}
+	
+	 @ResponseBody
+	  @RequestMapping(value="/delete") String delete(int pid) { return
+	  String.valueOf(service.delete(pid)); }
+	
 	
 	/*
 	 * @RequestMapping("/delete") String delete(int pid) { service.delete(pid);

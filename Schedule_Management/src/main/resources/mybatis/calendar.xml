@@ -13,7 +13,7 @@
 	values(#{userid},#{title},#{start},#{end})
 </insert>
 
-<delete id="delete">
+ <delete id="delete">
 	delete from calendar where pid=#{pid}
-</delete>
+</delete> 
 </mapper>

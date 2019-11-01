@@ -43,15 +43,13 @@
 //   <fmt:formatDate value="${citem.start}" pattern="yyyy-MM-dd"/>
 $(document).ready(function(){
 // 	var id = '${sessionScope.login.userid}';
-// var pid = '${list.pid}';
 
 	 var dataset = [
 	
 		    <c:forEach var="citem" items="${list}">
 		          {
-		        	 pid:'<c:out value="${citem.pid}"/>',
-		             id:'<c:out value="${citem.userid}" />',
-		             title:'<c:out value="${citem.title}" />',
+		             id:'<c:out value="${citem.userid}"/>',
+		             title:'<c:out value="${citem.title}"/>',
 		             start: '<c:out value="${citem.start}"/>',
 		             end:'<c:out value="${citem.start}"/>',
 		          },
@@ -84,14 +82,16 @@ $(document).ready(function(){
 		           right: 'month,agendaWeek,agendaDay'
 		         },
 		         events: dataset,
-		         eventClick : function removeCheck(){
-		        	  var pid= "21";
-		        	 console.log(pid);
+		          eventClick : function removeCheck(){
+		        	   var pid= "252"; 
+		        	  console.log(pid);
 		        	 if(confirm("삭제하시겠습니까?") == true){
 		        		 $.ajax("/calendar/delete",{
 		        			method:"get",
-		        			data:dataset,
-		        			success:function(result){
+		        			data:{
+		        				"pid" : pid
+		        			}, 
+		        			 success:function(result){
 		        				if(result==1)
 		        					alert("삭제되었습니다.");
 		        				location.reload();
@@ -99,8 +99,8 @@ $(document).ready(function(){
 		        		 });
 		        	 }else{
 		        		 return false;
-		        	 }
-		         },
+		        	 } 
+		          }, 
 		       
 		         select : function(start, end, allDay) {
 				        var startDate = moment(start).format('YYYY-MM-DD');
@@ -112,7 +112,6 @@ $(document).ready(function(){
 						console.log(title);
 						console.log(startDate);
 						console.log(endDate);
-						console.log(pid);
 					
 						if (title) {
 					/* ajax */
@@ -326,20 +325,7 @@ $(document).ready(function(){
         <!-- Page Content -->
 
   <div id='calendar'></div>
-<input type="text" name="pid" value="${list.pid}">
 <input type="hidden" name="userid" value="${login.userid}" id="useridAjax"> 
-<%-- <input type="hidden" name="calendarList" value="${list.contents}"> --%>
-
-<div>
-	<c:choose>
-		<c:when test="${list.size() > 0 }">
-			<c:forEach var="list" items="${list}">
-				<span>${list.pid }</span>
-			</c:forEach>
-		</c:when>
-	</c:choose>
-</div>
-
 <!-- 
 <button type="button" id="save">저장</button> -->
 </div>
